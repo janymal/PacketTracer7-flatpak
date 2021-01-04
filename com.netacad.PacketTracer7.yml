@@ -1,0 +1,41 @@
+app-id: com.netacad.PacketTracer7
+# metadata: com.netacad.PacketTracer7.appdata.xml
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+sdk: org.freedesktop.Sdk
+command: /app/pt/packettracer
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --filesystem=home
+
+modules:
+  - name: packettracer
+    buildsystem: simple
+    build-commands:
+      - install -D com.netacad.PacketTracer7.appdata.xml /app/share/metainfo/com.netacad.PacketTracer7.appdata.xml
+      - ar x PacketTracer_731_amd64.deb
+      - xz -d data.tar.xz
+      - tar -xf data.tar
+      - find opt/pt/saves -type d -exec chmod 755 {} +
+      - find opt/pt/saves -type f -exec chmod 644 {} +
+      - mv opt/pt /app
+      - install -D /app/pt/art/app.png /app/share/icons/hicolor/48x48/apps/com.netacad.PacketTracer7.png
+      - install -D /app/pt/bin/Cisco-PacketTracer.desktop /app/share/applications/com.netacad.PacketTracer7.desktop
+      - sed -i -e 's\Icon=.*\Icon=com.netacad.PacketTracer7\;' /app/share/applications/com.netacad.PacketTracer7.desktop
+      - sed -i -e 's\Exec=packettracer\Exec=/app/pt/packettracer\;' /app/share/applications/com.netacad.PacketTracer7.desktop
+      - echo 'StartupWMClass=PacketTracer7' >> /app/share/applications/com.netacad.PacketTracer7.desktop
+      - sed -i -e 's\/opt/\/app/\g' /app/pt/packettracer /app/pt/linguist
+      - rm '/app/pt/postinstall.sh'
+           '/app/pt/uninstall.sh'
+           '/app/pt/bin/Cisco-PacketTracer.desktop'
+
+    sources:
+      - type: file
+        path: PacketTracer_731_amd64.deb
+        sha256: c39802d15dd61d00ba27fb8c116da45fd8562ab4b49996555ad66b88deace27f
+      - type: file
+        path: com.netacad.PacketTracer7.appdata.xml 
