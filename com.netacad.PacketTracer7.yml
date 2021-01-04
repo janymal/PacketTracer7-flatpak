@@ -29,6 +29,7 @@ modules:
       - sed -i -e 's\Exec=packettracer\Exec=/app/pt/packettracer\;' /app/share/applications/com.netacad.PacketTracer7.desktop
       - echo 'StartupWMClass=PacketTracer7' >> /app/share/applications/com.netacad.PacketTracer7.desktop
       - sed -i -e 's\/opt/\/app/\g' /app/pt/packettracer /app/pt/linguist
+      - sed -i -e 's\"$@"\-style windows "$@"\;' /app/pt/packettracer /app/pt/linguist
       - rm '/app/pt/postinstall.sh'
            '/app/pt/uninstall.sh'
            '/app/pt/bin/Cisco-PacketTracer.desktop'
