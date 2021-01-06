@@ -1,5 +1,4 @@
 app-id: com.netacad.PacketTracer7
-# metadata: com.netacad.PacketTracer7.appdata.xml
 runtime: org.freedesktop.Platform
 runtime-version: '20.08'
 sdk: org.freedesktop.Sdk
